@@ -2,18 +2,18 @@ pragma solidity ^0.4.16;
 
 import "./SafeMath.sol";
 
-contract MTC {
+contract WZC {
     
      using SafeMath for uint256;  //uint256変数にはSafeMathを適用する。
      
     //ネットワーク上にリリースするトークン名とティッカー
-     string public constant symbol = "MTC";
+     string public constant symbol = "WZC";
      string public constant name = "Woz Coin";
      
      //総供給量と対ethレートの定義
      uint256 _totalSupply = 1000000; //1000 x 1000 (小数点以下分を含む)
      uint256 _currentSupply = 0;
-     uint256 public constant RATE = 20; //20mtc = 1eth
+     uint256 public constant RATE = 20; //20wzc = 1eth
      uint256 public constant decimals = 3;
      address public owner;
   
@@ -36,12 +36,12 @@ contract MTC {
      }
   
      // 以下動作部分となるコンストラクター
-     function MTC() public {
+     function WZC() public {
          owner = msg.sender;
          balances[owner] = _totalSupply;
      }
   
-    //ethとmtcの交換処理
+    //ethとwzcの交換処理
     function createTokens(address addr) public payable{
         require(msg.value > 0); 
         uint256 tokens = msg.value.mul(RATE).mul(1000).div(1 ether);
@@ -63,7 +63,7 @@ contract MTC {
          return balances[_owner];
      }
   
-     // 交換したmtcの送付
+     // 交換したwzcの送付
      function transfer(address _to, uint256 _value) public returns (bool success) {
          require(
              balances[msg.sender] >= _value 
@@ -74,8 +74,7 @@ contract MTC {
         Transfer(msg.sender, _to, _value);
         return true;
      }
-  
-     // mtc獲得後の流通のための関数
+     // wzc獲得後の流通のための関数
      function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
          require(
              balances[_from] >= _value
